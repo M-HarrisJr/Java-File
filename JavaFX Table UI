@@ -1,0 +1,161 @@
+// This code was written by Michael Harris Jr.
+
+// This code was written and executed using the Apache Netbeans IDE, version 12.4.
+
+// A successful run of this code will allow for a menu to pop up with the option to add rows with values for different countries.
+
+// This code also allows for lines in the table to be deleted and not leave open spaces.
+
+// This code shows successful use of UI directly controlled by code.
+
+// This is basic level code showing the interaction between user interface and code.
+
+
+// Imports
+package com.newcode.main;
+
+import javafx.application.Application;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.FlowPane;
+import javafx.stage.Stage;
+
+
+// Main
+public class AddNewRow extends Application{
+  @Override
+  public void start(Stage primaryStage) {
+    TableView<Country> tableView = new TableView<>();
+    ObservableList<Country> data =
+      FXCollections.observableArrayList(
+        new Country("USA", "Washington DC", 280, true),
+        new Country("Canada", "Ottawa", 32, true),
+        new Country("United Kingdom", "London", 60, true),
+        new Country("Germany", "Berlin", 83, true),
+        new Country("France", "Paris", 60, true));
+    tableView.setItems(data);
+    
+    TableColumn countryColumn = new TableColumn("Country");
+    countryColumn.setMinWidth(100);
+    countryColumn.setCellValueFactory(
+      new PropertyValueFactory<Country, String>("country"));
+    
+    TableColumn capitalColumn = new TableColumn("Capital");
+    capitalColumn.setMinWidth(100);
+    capitalColumn.setCellValueFactory(
+      new PropertyValueFactory<Country, String>("capital"));
+
+    TableColumn populationColumn = 
+      new TableColumn("Population (millions)");
+    populationColumn.setMinWidth(100);
+    populationColumn.setCellValueFactory(
+      new PropertyValueFactory<Country, Double>("population"));
+
+    TableColumn democraticColumn = 
+      new TableColumn("Democratic country?");
+    democraticColumn.setMinWidth(100);
+    democraticColumn.setCellValueFactory(
+      new PropertyValueFactory<Country, Boolean>("democratic"));
+
+    tableView.getColumns().addAll(countryColumn, capitalColumn,
+      populationColumn, democraticColumn);
+
+    FlowPane flowPane = new FlowPane(3, 3);
+    TextField tfCountry = new TextField();
+    TextField tfCapital = new TextField();
+    TextField tfPopulation = new TextField();
+    CheckBox chkDemocratic = new CheckBox("Democratic country?");
+    Button btAddRow = new Button("Add new row");
+    Button btDeleteRow = new Button("Delete row");
+    tfCountry.setPrefColumnCount(5);
+    tfCapital.setPrefColumnCount(5);
+    tfPopulation.setPrefColumnCount(5);
+    flowPane.getChildren().addAll(new Label("Country: "),
+      tfCountry, new Label("Capital"), tfCapital, 
+      new Label("Population"), tfPopulation, chkDemocratic, 
+      btAddRow, btDeleteRow);
+    
+    btAddRow.setOnAction(e -> {
+      data.add(new Country(tfCountry.getText(), tfCapital.getText(), 
+        Double.parseDouble(tfPopulation.getText()), 
+        chkDemocratic.isSelected()));
+      tfCountry.clear();
+      tfCapital.clear();
+      tfPopulation.clear();
+    });
+    btDeleteRow.setOnAction(e -> {
+        tableView.getItems().removeAll(tableView.getSelectionModel().getSelectedItem());
+    });
+    
+    BorderPane pane = new BorderPane();
+    pane.setCenter(tableView);
+    pane.setBottom(flowPane);
+    
+    Scene scene = new Scene(pane, 500, 250);  
+    primaryStage.setTitle("AddNewRowDemo");
+    primaryStage.setScene(scene);
+    primaryStage.show();
+  }
+
+  public static class Country {
+    private final SimpleStringProperty country;
+    private final SimpleStringProperty capital;
+    private final SimpleDoubleProperty population;
+    private final SimpleBooleanProperty democratic;
+
+    private Country(String country, String capital,
+        double population, boolean democratic) {
+      this.country = new SimpleStringProperty(country);
+      this.capital = new SimpleStringProperty(capital);
+      this.population = new SimpleDoubleProperty(population);
+      this.democratic = new SimpleBooleanProperty(democratic);
+    }
+
+    public String getCountry() {
+      return country.get();
+    }
+
+    public void setCountry(String country) {
+      this.country.set(country);
+    }
+
+    public String getCapital() {
+      return capital.get();
+    }
+
+    public void setCapital(String capital) {
+      this.capital.set(capital);
+    }
+
+    public double getPopulation() {
+      return population.get();
+    }
+
+    public void setPopulation(double population) {
+      this.population.set(population);
+    }
+
+    public boolean isDemocratic() {
+      return democratic.get();
+    }
+
+    public void setDemocratic(boolean democratic) {
+      this.democratic.set(democratic);
+    }
+  }
+    public static void main(String[] args) {
+		launch(args);
+    }
+}
