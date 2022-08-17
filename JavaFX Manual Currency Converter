@@ -1,3 +1,14 @@
+// This code was written by Michael Harris Jr.
+
+// This code was written and executed using the Apache Netbeans IDE, version 12.4.
+
+// A successful run of this code will allow for a menu to pop up and let the user enter a dollar amount to be converted by the currency rate the user sets.
+
+// This code shows successful use of UI directly controlled by code.
+
+// This is basic level code showing the interaction between user interface and code.
+
+// Imports
 package com.newcode.main;
 
 import java.text.NumberFormat;
