@@ -1,0 +1,94 @@
+package com.newcode.main;
+
+import java.text.NumberFormat;
+import java.util.Locale;
+import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.geometry.Insets;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.RadioButton;
+import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleGroup;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.stage.Stage;
+
+public class Exercise36_06 extends Application {
+    @Override
+    public void start(Stage primaryStage) {
+        GridPane pane = new GridPane();
+        pane.setPadding(new Insets(20));
+        pane.setHgap(10);
+        pane.setVgap(10);
+
+        Label labelUSD = new Label("USD:");
+        pane.add(labelUSD, 0, 0);
+        TextField textUSD = new TextField();
+        pane.add(textUSD, 1, 0);
+        Label labelConversionRate = new Label("Conversion Rate:");
+        pane.add(labelConversionRate, 0, 1);
+        TextField textConversionRate = new TextField();
+        pane.add(textConversionRate, 1, 1);
+
+        HBox box = new HBox();
+
+        box.setSpacing(15);
+
+        ToggleGroup radioGrp = new ToggleGroup();
+        RadioButton CAD = new RadioButton("CAD");
+
+        CAD.setUserData(Locale.CANADA);
+        CAD.setSelected(true);
+        CAD.setToggleGroup(radioGrp);
+        RadioButton EURO = new RadioButton("EURO");
+        EURO.setUserData(Locale.GERMANY);
+        EURO.setToggleGroup(radioGrp);
+        RadioButton GBP = new RadioButton("GBP");
+        GBP.setUserData(Locale.UK);
+        GBP.setToggleGroup(radioGrp);
+
+        box.getChildren().addAll(CAD, EURO, GBP);
+
+        pane.add(box, 0, 2, 2, 1);
+
+        Button convert = new Button("Convert");
+        pane.add(convert, 0, 3);
+        TextField result = new TextField("Enter the amount & rate and then press calculate!");
+        result.setEditable(false);
+        pane.add(result, 0, 4, 2, 1);
+
+        Scene scene = new Scene(pane);
+        primaryStage.setTitle("Currency converter!");
+        primaryStage.setScene(scene);
+        primaryStage.show();
+
+        convert.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                try {
+                    Double amount = Double.parseDouble(textUSD.getText());
+                    Double rate = Double.parseDouble(textConversionRate.getText());
+                    Double converted = amount * rate;
+
+                    Locale locale = (Locale) radioGrp.getSelectedToggle().getUserData();
+
+                    NumberFormat formatter = NumberFormat.getCurrencyInstance(locale);
+
+                    String res = formatter.format(converted);
+
+                    result.setText(res);
+                } 
+                catch (Exception e) {
+                    result.setText("Invalid amount/rate");
+                }
+            }
+        });
+    }
+
+    public static void main(String[] args) {
+        launch(args);
+    }
+}
