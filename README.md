@@ -15,7 +15,7 @@
 <ul>
   <li><a href="https://github.com/M-HarrisJr/Java-File/blob/main/JavaFX%20Table%20UI"><b>JavaFX Table UI</b></a><br/><i>This code shows UI to code interaction and does so using <a href="https://docs.oracle.com/javafx/2/overview/jfxpub-overview.htm"><b>JavaFX</b></a>.</i></li>
   
-  <li><a href="https://github.com/M-HarrisJr/C-Plus-Plus-File/blob/main/Hexadecimal%20to%20Binary%20%26%20Decimal%20to%20IEEE"><b>More Advanced Converter</b></a><br/>   <i>This code shows more advanced math & is a converter of both hexadecimal to binary code & decimal to IEEE.</i></li>
+  <li><a href="https://github.com/M-HarrisJr/Java-File/blob/main/JavaFX%20Manual%20Currency%20Converter"><b>JavaFX Manual Converter</b></a><br/><i>This code shows the basic math completed by code behind a user interface, this converter uses <a href="https://docs.oracle.com/javafx/2/overview/jfxpub-overview.htm"><b>JavaFX</b></a>.</i></li>
   
   <li><a href="https://github.com/M-HarrisJr/C-Plus-Plus-File/blob/main/List%20Code%20Using%20Nodes"><b>Lists/Nodes Coding Practice</b></a><br/><i>This code shows the uses of lists/nodes in C++.</i></li>
   
